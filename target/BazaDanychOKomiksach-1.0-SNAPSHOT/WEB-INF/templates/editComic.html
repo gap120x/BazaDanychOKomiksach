@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły komiksu</title>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+	
+	
+<link href="../static/css/navigation.css" rel="stylesheet" />  
+
+<link href="../static/css/bookDetails.css" rel="stylesheet" />
+<link href="../static/css/addComic.css" rel="stylesheet" />
+<script src="../js/loadImage.js"></script>
+
+
+
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+
+
+    <header>
+    <nav class="navbar navbar-light bg-light navbar-expand-xl">
+        <a class="navbar-brand" href="index.html">Baza danych o komiksach</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainmenu">
+            <ul class="navbar-nav">
+                <li class="navbar-item">
+                    <a class="nav-link" href="index.html">Strona główna</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="favourite.html">Ulubione</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="showUsers.html">Zarządzanie użytkownikami</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="editAccount.html">Edytuj konto</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="login.html">Zaloguj się</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="#">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+</header>
+
+<content>
+   
+<form id="editComic">
+<div>
+    <div class="row heading text-center">
+        <div class="col-md-12">
+            <ul class="list-group text-center">
+
+                <div class="d-flex justify-content-center">
+					<input type="text" class="form-control" id="comicName" placeholder="Lucyfer" style="width:200px">
+
+                    
+                </div>
+				<div class="d-flex justify-content-center">
+				  
+				  
+				<img id="coverImg" src="../static/gfx/lucyfer.jpg"width="300" height="400" alt="okładka"/>
+
+                    
+                </div>
+				<div class="d-flex justify-content-center">
+				<p class="btn btn-info btn-xs comicBtn">
+				
+				<i class="fa fa-edit"></i> Zmień okładkę </br>
+				<input type='file' onchange="readURL(this)"/>
+				</p>
+				
+                    
+                </div>
+				
+				
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+	
+		<div class="row" style="height:100%">
+			<div class="col-md-8">
+				<table class="table table-active" style="height:100%">
+					<tr class="text-center">
+						<td>Autor</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicAutor" placeholder="Carey Mike, Weston Chris, Gross Peter">
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td>Kategoria</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicCategory" placeholder="Kryminał">
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td>Język</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicLanguage" placeholder="Polski">
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td>Liczba stron</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicPages" placeholder="511">
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td>Oprawa</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicCover" placeholder="miekka">
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td>Rok wydania</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicYear" placeholder="2021">
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td>Wydawnictwo</td>
+						<td class="form-group">
+						<input type="text"class="form-control" id="comicPublishing" placeholder="Egmont Polska">
+						</td>
+					</tr>
+				</table>
+
+			</div>
+			<div class="col-md-4 text-center">
+				<table class="table table-active" style="height:100%">
+					<tr class="text-center" style="height:20px">
+						<td>Opis</td>
+					</tr>
+					<tr class="text-center">
+						<td>
+							<textarea name="description" class="h-100 w-100" form="editForm">
+								Pierwszy tom nowej edycji przełomowego dzieła komiksowego, nominowanego do Nagrody Eisnera. 
+								Lucyfer – Gwiazda Zaranna porzucił piekło i zamieszkał w Los Angeles, gdzie prowadzi nocny klub o nazwie "Lux ". 
+								Pewnego dnia odwiedza go wysłannik nieba z propozycją od samego Stwórcy. 
+								Propozycja ta zachwieje spokojną egzystencją Diabła i zmusi go do powrotu do miejsc, do których nigdy nie chciałby wracać"
+							</textarea>
+						</td>
+						
+					</tr>
+				</table>
+		   </div>
+		</div>
+	<div class="d-flex justify-content-center">
+		<button style="display:inline-block;margin:5px" type="submit" form ="editComic"class="btn btn-warning btn-xs comicBtn"><i class="fa fa-lock" aria-hidden="true"> Zapisz zmiany </i></button>
+	
+	</div>
+</form>
+</div>
+<div class="container">
+</div>
+
+</content>
+<footer class="card-footer mt-auto bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">O nas</h5>
+
+                <p>
+                    Strona została stworzona dla pasjonatów komiksów, dla osób które również pasjonują się tą dziedziną.
+                    recenzje, ciekawostki, komiksy na ekranie, to wszystko znajdziesz na naszej stronie.
+
+                </p>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Kontakt</h5>
+
+               
+
+                   Jeśli chcesz się z nami skontaktować: </br>
+                   Napisz na nasz adres email:</br>
+                    komiksy@gmail.com
+                </p>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright       
+    </div>
+    <!-- Copyright -->
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    
+    <script src="../js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

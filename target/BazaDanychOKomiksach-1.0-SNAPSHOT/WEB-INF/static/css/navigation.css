@@ -1,0 +1,10 @@
+.navbar
+{
+	min-height: 57px;
+}
+
+
+#wyszukiwarka, #tytulKomiksu, #naglowek {
+    margin:50px;
+}
+

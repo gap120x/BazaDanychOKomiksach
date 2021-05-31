@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ulubione</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+
+    <link href="../static/css/navigation.css" rel="stylesheet" />  
+    <link href="../static/css/index.css" rel="stylesheet" /> 
+    <link href="../static/css/showBooks.css" rel="stylesheet" />  
+     
+
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+	
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-light bg-light navbar-expand-xl">
+        <a class="navbar-brand" href="index.html">Baza danych o komiksach</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainmenu">
+            <ul class="navbar-nav">
+                <li class="navbar-item">
+                    <a class="nav-link" href="index.html">Strona główna</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="favourite.html">Ulubione</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="showUsers.html">Zarządzanie użytkownikami</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="editAccount.html">Edytuj konto</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="login.html">Zaloguj się</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="#">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+</header>
+<content>      
+   <div id="books" class="show">	
+    <form method="post" action="" id="wyszukiwarka">
+	<div class="input-group">
+			
+    <select  class="form-control" >
+  <option value="tytul">Tytuł</option>
+  <option value="autorzy">Autorzy</option>
+  <option value="wydawnictwo">Wydawnicto</option>
+   <option value="wydawnictwo">Data Wydania</option>
+</select>
+	<input type="text" class="form-control" placeholder="Wyszukaj">
+    <div class="input-group-append">
+      <button class="btn btn-secondary" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+	  </form>
+    </div>
+
+  </div>
+        <h2 class="text-center">Lista Twoich ulubionych komiksów</h2>
+        <table id="users" class="table table-active">
+            <tr>
+                <th scope="col" class="text-center">Okładka</th>
+                <th scope="col" class="text-center">Tytuł</th>            
+                <th scope="col" class="text-center">Autorzy</th>
+                <th scope="col" class="text-center">Wydawnictwo</th>
+				<th scope="col" class="text-center">Data Wydania</th>
+                <th scope="col" class="text-center" colspan="2">Operacje</th>
+            </tr>
+    		<tr >
+              
+                    <td valign="top" class="text-center" >
+                     <a href="bookDetails.html"><img src="..\static\gfx\lucyfer.jpg" width="100" height="150"/> </a>                       
+                      </td>
+                    <td valign="top" class="text-center">
+                       Lucyfer. Tom 1
+                    </td>
+                <td valign="top" class="text-center">
+                        Peter Gross,Dean Ormston i Scott Hampton 
+                    </td>
+					 <td valign="top" class="text-center">
+                        Egmont
+                    </td>
+						 <td valign="top" class="text-center">
+                        2021
+                    </td>
+					 <td valign="top" class="text-center">
+                      <a href=""> <button role="button" id="hearbutton" class="btn btn-outline-danger btn-lg">
+  <i class="fa fa-minus-circle"></i> Usuń </button> </a>
+                    </td>
+            </tr>
+		
+        </table>
+    </div>
+</content>
+
+<footer class="card-footer mt-auto bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">O nas</h5>
+
+                <p>
+                     Strona została stworzona dla pasjonatów komiksów, dla osób które również pasjonują się tą dziedziną.
+					recenzje, ciekawostki, komiksy na ekranie, to wszystko znajdziesz na naszej stronie.
+
+                </p>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Kontakt</h5>
+
+               
+
+                      Jeśli chcesz się z nami skontaktować: </br>
+				   Napisz na nasz adres email:</br>
+                    komiksy@gmail.com
+                </p>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright       
+    </div>
+    <!-- Copyright -->
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    
+    <script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

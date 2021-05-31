@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja Użytkownika</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    
+    <link href="../static/css/navigation.css" rel="stylesheet" />
+    <link href="../static/css/editUser.css" rel="stylesheet" />
+
+
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+
+    <header>
+    <nav class="navbar navbar-light bg-light navbar-expand-xl">
+        <a class="navbar-brand" href="index.html">Baza danych o komiksach</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainmenu">
+            <ul class="navbar-nav">
+                <li class="navbar-item">
+                    <a class="nav-link" href="index.html">Strona główna</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="favourite.html">Ulubione</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="showUsers.html">Zarządzanie użytkownikami</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="editAccount.html">Edytuj konto</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="login.html">Zaloguj się</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="#">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+</header>
+
+<content>
+    
+
+
+
+
+<div class="registration-form">
+    <h1 class="text-center">Edycja Użytkownika</h1>
+    <form method="post" onsubmit="">
+        <div class="form-icon">
+            <span><i class="icon icon-user"></i></span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control item" id="nazwaUsera" placeholder="Nowy login">
+        </div>
+
+        <p style="color:red">Nazwa Użytkownika jest już zajęta!</p>
+
+        <div class="form-group">
+            <input type="password" class="form-control item" id="haslo1" placeholder="Nowe hasło">
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control item" id="haslo2" placeholder="Potwierdź hasło">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control item" id="email" placeholder="Nowy email">
+        </div>
+
+        <p style="color:red">Adres email jest już zajęty!</p>
+        <p style="color:red">Niepoprawny adres email!</p>
+
+          <div class="form-group">
+            <select class="form-control" id="typUzytkownika_select">
+                <option>administrator</option>
+                <option>standardowy</option>
+            </select>
+        </div>
+
+    
+        <p style="color:red">Wszystkie pola oprócz hasła są obowiązkowe!</p>
+        <div class="form-group">
+            <button type="submit" class="btn btn-block create-account submit">Zapisz zmiany</button>
+        </div>
+    </form>
+
+</div>
+
+</content>
+
+
+<footer class="card-footer mt-auto bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">O nas</h5>
+
+                <p>
+                    Strona została stworzona dla pasjonatów komiksów, dla osób które również pasjonują się tą dziedziną.
+                    recenzje, ciekawostki, komiksy na ekranie, to wszystko znajdziesz na naszej stronie.
+
+                </p>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Kontakt</h5>
+
+               
+
+                   Jeśli chcesz się z nami skontaktować: </br>
+                   Napisz na nasz adres email:</br>
+                    komiksy@gmail.com
+                </p>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright       
+    </div>
+    <!-- Copyright -->
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    
+    <script src="../js/bootstrap.min.js"></script>
+
+</body>
+</html>
