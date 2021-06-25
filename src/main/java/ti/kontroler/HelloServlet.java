@@ -58,6 +58,7 @@ public class HelloServlet extends HttpServlet {
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
+            user.setRole(1);
             System.out.print(user);
 
 

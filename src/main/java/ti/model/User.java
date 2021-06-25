@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+// 1 - zalogowany/standardowy user
+// 2 - administrator
+
 @Entity
 @Table( name = "user")
 public class User implements Serializable {
@@ -36,7 +39,7 @@ public class User implements Serializable {
 
     public User() {
         this.enabled = true;
-        this.role = 1;
+        this.role = -1;
     }
 
     public String getUsername() {
