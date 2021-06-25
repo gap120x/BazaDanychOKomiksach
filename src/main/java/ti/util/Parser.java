@@ -5,7 +5,6 @@ public class Parser {
     public static String parse(String input, String pattern)
     {
 
-        System.out.print("input:" +input + "\n");
         String output = "main";
         String[] strony = pattern.split(";");
         if (input==null) input="main";

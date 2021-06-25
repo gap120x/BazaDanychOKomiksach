@@ -13,7 +13,7 @@
     <link href="static/css/index.css" rel="stylesheet" />
     <link href="static/css/showBooks.css" rel="stylesheet" />
     <link href="static/css/navigation.css" rel="stylesheet" />
-
+    <link href="static/css/register.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
@@ -21,7 +21,6 @@
 
 <%
     String webpage =request.getParameter("webpage");
-    System.out.print(webpage);
 
     if(currentUser.getRole()==1) {
         webpage = Parser.parse(webpage,"index;");
@@ -35,7 +34,6 @@
 %>
 
 <body>
-
 <jsp:include page="/WEB-INF/templates/navbar.jsp"/>
 
 <jsp:include page="/WEB-INF/templates/content.jsp">

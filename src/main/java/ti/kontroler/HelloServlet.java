@@ -7,11 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import ti.dao.UserDao;
 import ti.model.User;
 
-@WebServlet("/register")
+@WebServlet("/index")
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
@@ -24,12 +25,27 @@ public class HelloServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        register(request, response);
+
+        HttpSession sesja =request.getSession();
+        User currentUser =(User) sesja.getAttribute("currentUser");
+
+        if(currentUser==null) {
+
+
+            currentUser= new User();
+            sesja.setAttribute("currentUser",currentUser);
+        }
+        String action = request.getParameter("action");
+        if(action==null) action="";
+        if(action.equals("register"))
+        {
+            register(request, response);
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
 
         response.sendRedirect("register.jsp");
     }
@@ -41,11 +57,7 @@ public class HelloServlet extends HttpServlet {
 
 
 
-
-
-
         RequestDispatcher dispatcher = null;
-
 
 
         //check if username is free
