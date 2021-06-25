@@ -1,3 +1,4 @@
+<%@ page import="ti.util.Parser" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <jsp:useBean id="currentUser" class="ti.model.User" scope="session"/>
 <!DOCTYPE html>
@@ -17,17 +18,19 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
+
 <%
-    String strona =request.getParameter("strona");
+    String webpage =request.getParameter("webpage");
+    System.out.print(webpage);
 
     if(currentUser.getRole()==1) {
-        strona = Narzedzia.filtrujStrone(strona,"glowna;kwadratowe;liczbyPierwsze;ustawienia");
+        webpage = Parser.parse(webpage,"index;");
     }
-    else if(uzytkownik.getUprawnienia()==2) {
-        strona = Narzedzia.filtrujStrone(strona,"glowna;kwadratowe;liczbyPierwsze;ustawienia;administracja");
+    else if(currentUser.getRole()==2) {
+        webpage = Parser.parse(webpage,"index;");
     }
     else {
-        strona = Narzedzia.filtrujStrone(strona,"glowna;kwadratowe;liczbyPierwsze;rejestracja");
+        webpage =  Parser.parse(webpage,"index;register");
     }
 %>
 
@@ -35,7 +38,9 @@
 
 <jsp:include page="/WEB-INF/templates/navbar.jsp"/>
 
-<jsp:include page="/WEB-INF/templates/content.jsp"/>
+<jsp:include page="/WEB-INF/templates/content.jsp">
+    <jsp:param name="which" value="<%=webpage%>"/>
+</jsp:include>
 
 <jsp:include page="/WEB-INF/templates/footer.jsp"/>
 

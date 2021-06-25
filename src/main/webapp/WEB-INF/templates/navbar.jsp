@@ -38,7 +38,7 @@
 
                 <% if(currentUser.getRole()<0 ){ %>
                 <li class="navbar-item">
-                    <a class="nav-link" href="register">Rejestracja</a>
+                    <a class="nav-link" href="index.jsp?webpage=register">Rejestracja</a>
                 </li>
                 <%}%>
 

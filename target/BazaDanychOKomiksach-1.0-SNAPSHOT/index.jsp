@@ -1,4 +1,6 @@
+<%@ page import="ti.util.Parser" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<jsp:useBean id="currentUser" class="ti.model.User" scope="session"/>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -15,11 +17,30 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
+
+
+<%
+    String webpage =request.getParameter("webpage");
+    System.out.print(webpage);
+
+    if(currentUser.getRole()==1) {
+        webpage = Parser.parse(webpage,"index;");
+    }
+    else if(currentUser.getRole()==2) {
+        webpage = Parser.parse(webpage,"index;");
+    }
+    else {
+        webpage =  Parser.parse(webpage,"index;register");
+    }
+%>
+
 <body>
 
 <jsp:include page="/WEB-INF/templates/navbar.jsp"/>
 
-<jsp:include page="/WEB-INF/templates/content.jsp"/>
+<jsp:include page="/WEB-INF/templates/content.jsp">
+    <jsp:param name="which" value="<%=webpage%>"/>
+</jsp:include>
 
 <jsp:include page="/WEB-INF/templates/footer.jsp"/>
 
