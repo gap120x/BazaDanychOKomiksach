@@ -44,14 +44,16 @@ public class HelloServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = null;
 
-        User dbUser = userDao.getUserByUsername(username);
 
 
-        if(dbUser != null){
-            dispatcher = request.getRequestDispatcher("register-usernameTaken.jsp");
-            System.out.print(dbUser);
-        }
-        else{
+        //check if username is free
+
+        User usernameCheck = userDao.getUserByUsername(username);
+
+
+        User emailCheck = userDao.getUserByEmail(email);
+
+        if(usernameCheck == null  && emailCheck == null){
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
@@ -61,9 +63,29 @@ public class HelloServlet extends HttpServlet {
 
             userDao.saveUser(user);
             dispatcher = request.getRequestDispatcher("register-success.jsp");
+
         }
+        else{
+
+            String errors = "";
+
+            errors+="Register failed, please correct the following errors and retry: <br/>";
+
+            if(usernameCheck != null){
+                errors += "Username " + username + " is already taken, please choose a different username <br/> ";
+            }
+
+            if(emailCheck != null){
+                errors += "Email " + email + " is already taken, please choose a different e-mail";
+            }
 
 
+
+            dispatcher = request.getRequestDispatcher("register-error.jsp?errors="+errors);
+
+
+
+        }
 
 
 

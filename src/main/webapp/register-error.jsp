@@ -17,7 +17,8 @@
 <div class="container">
     <div class="row col-md-10 col-md-offset-3">
         <div class="card card-body">
-            <h1>Error connecting to the database</h1>
+            <%= request.getParameter("errors") %>
+
         </div>
     </div>
 </div>

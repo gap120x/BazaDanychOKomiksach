@@ -35,12 +35,41 @@ public class UserDao {
 
         try {
 
-
-
             session = HibernateUtil.getSessionFactory().openSession();
 
             Query<User> query = session.createQuery("from User u where u.username=:username");
             query.setParameter("username", user_username);
+            user = query.uniqueResult();
+
+
+            //user =  (User) session.get(User.class, user_username);
+            Hibernate.initialize(user);
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return user;
+    }
+
+
+    public User getUserByEmail(String user_username){
+
+        Session session = null;
+        User user = null;
+
+        try {
+
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Query<User> query = session.createQuery("from User u where u.email=:email");
+            query.setParameter("email", user_username);
             user = query.uniqueResult();
 
 

@@ -32,11 +32,11 @@ public class User implements Serializable {
     private Boolean enabled;
 
     @Column(name = "role")
-    private String role;
+    private Integer role;
 
     public User() {
         this.enabled = true;
-        this.role = "user";
+        this.role = 1;
     }
 
     public String getUsername() {
@@ -72,11 +72,11 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public String getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 
