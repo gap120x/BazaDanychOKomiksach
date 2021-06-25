@@ -4,6 +4,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import org.hibernate.query.Query;
 import ti.model.User;
 import ti.util.HibernateUtil;
 
@@ -15,7 +16,7 @@ public class UserDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // save the student object
+            // save the user object
             session.save(user);
             // commit transaction
             transaction.commit();
@@ -26,6 +27,41 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+
+    public User getUserByUsername(String user_username){
+
+        Session session = null;
+        User user = null;
+
+        try {
+
+
+
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Query<User> query = session.createQuery("from User u where u.username=:username");
+            query.setParameter("username", user_username);
+            user = query.uniqueResult();
+
+
+            //user =  (User) session.get(User.class, user_username);
+            Hibernate.initialize(user);
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return user;
+    }
+
+
+
     public User getUserById(int user_id) {
         Session session = null;
         User user = null;

@@ -29,30 +29,25 @@
                 <form action="<%=request.getContextPath()%>/register" method="post">
 
                     <div class="form-group">
-                        <label for="uname">First Name:</label> <input type="text"
-                                                                      class="form-control" id="uname" placeholder="First Name"
-                                                                      name="firstName" required>
+                        <label for="email">Email:</label> <input type="text"
+                                                                      class="form-control" id="email" placeholder="Your e-mail address"
+                                                                      name="email" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="uname">Last Name:</label> <input type="text"
-                                                                     class="form-control" id="uname" placeholder="last Name"
-                                                                     name="lastName" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="uname">User Name:</label> <input type="text"
+                        <label for="username">User Name:</label> <input type="text"
                                                                      class="form-control" id="username" placeholder="User Name"
                                                                      name="username" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="uname">Password:</label> <input type="password"
+                        <label for="password">Password:</label> <input type="password"
                                                                     class="form-control" id="password" placeholder="Password"
                                                                     name="password" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
+
 
                 </form>
             </div>

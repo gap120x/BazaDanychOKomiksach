@@ -20,6 +20,8 @@ public class HelloServlet extends HttpServlet {
         userDao = new UserDao();
     }
 
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         register(request, response);
@@ -31,20 +33,40 @@ public class HelloServlet extends HttpServlet {
     }
 
     private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String email = request.getParameter("email");
 
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setUsername(username);
-        user.setPassword(password);
 
-        userDao.saveUser(user);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("register-success.jsp");
+
+
+
+        RequestDispatcher dispatcher = null;
+
+        User dbUser = userDao.getUserByUsername(username);
+
+
+        if(dbUser != null){
+            dispatcher = request.getRequestDispatcher("register-usernameTaken.jsp");
+            System.out.print(dbUser);
+        }
+        else{
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            System.out.print(user);
+
+
+            userDao.saveUser(user);
+            dispatcher = request.getRequestDispatcher("register-success.jsp");
+        }
+
+
+
+
+
         dispatcher.forward(request, response);
     }
 }
