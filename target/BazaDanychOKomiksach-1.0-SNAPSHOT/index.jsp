@@ -14,6 +14,7 @@
     <link href="static/css/showBooks.css" rel="stylesheet" />
     <link href="static/css/navigation.css" rel="stylesheet" />
     <link href="static/css/register.css" rel="stylesheet" />
+    <link href="static/css/login.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
@@ -29,7 +30,7 @@
         webpage = Parser.parse(webpage,"index;");
     }
     else {
-        webpage =  Parser.parse(webpage,"index;register");
+        webpage =  Parser.parse(webpage,"index;register;login");
     }
 %>
 

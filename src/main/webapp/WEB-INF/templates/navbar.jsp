@@ -45,14 +45,14 @@
 
                 <% if(currentUser.getRole()<0 ){ %>
                 <li class="navbar-item">
-                    <a class="nav-link" href="login.html">Zaloguj się</a>
+                    <a class="nav-link" href="index.jsp?webpage=login">Zaloguj się</a>
                 </li>
                 <%}%>
 
                 <% if(currentUser.getRole() >0) {%>
-                <li class="navbar-item">
-                    <a class="nav-link" href="#">Wyloguj</a>
-                </li>
+                <form action="index?action=logout" method="post">
+                    <input type="submit" name="logout" value="Wyloguj" />
+                </form>
                 <%}%>
             </ul>
         </div>

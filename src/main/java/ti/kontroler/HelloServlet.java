@@ -16,7 +16,7 @@ import ti.model.User;
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
-
+    public HttpSession sesja;
     public void init() {
         userDao = new UserDao();
     }
@@ -26,7 +26,7 @@ public class HelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession sesja =request.getSession();
+        sesja =request.getSession();
         User currentUser =(User) sesja.getAttribute("currentUser");
 
         if(currentUser==null) {
@@ -40,6 +40,20 @@ public class HelloServlet extends HttpServlet {
         if(action.equals("register"))
         {
             register(request, response);
+        }
+        else if(action.equals("login")){
+
+            login(request,response);
+
+        }
+        else if(action.equals("logout")){
+           currentUser = new User();
+            sesja.setAttribute("currentUser", currentUser);
+            RequestDispatcher dispatcher = null;
+            String logout = "Uzytkownik Poprawnie Wylogowany";
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+logout);
+            dispatcher.forward(request, response);
+
         }
 
     }
@@ -107,6 +121,37 @@ public class HelloServlet extends HttpServlet {
 
 
 
+        dispatcher.forward(request, response);
+    }
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String errors = "";
+
+        RequestDispatcher dispatcher = null;
+
+
+
+        User usernameCheck = userDao.getUserByUsername(username);
+
+
+        if(usernameCheck != null){
+            if(usernameCheck.getPassword().equals(password))
+            {
+                sesja.setAttribute("currentUser", usernameCheck);
+                dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
+            }
+            else //nieprawidlowe haslo
+            {
+                errors +="Nieprawidłowe Hasło<br/> ";
+                dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+            }
+        }
+        else // nieprawidlowy login
+        {
+            errors +="Nieprawidłowy Login<br/>";
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+        }
         dispatcher.forward(request, response);
     }
 }
