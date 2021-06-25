@@ -47,7 +47,10 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.sendRedirect("register.jsp");
+
+
+
+        //response.sendRedirect("register.jsp");
     }
 
     private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -77,7 +80,7 @@ public class HelloServlet extends HttpServlet {
 
 
             userDao.saveUser(user);
-            dispatcher = request.getRequestDispatcher("register-success.jsp");
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
 
         }
         else{
@@ -96,7 +99,7 @@ public class HelloServlet extends HttpServlet {
 
 
 
-            dispatcher = request.getRequestDispatcher("register-error.jsp?errors="+errors);
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
 
 
 
