@@ -28,11 +28,7 @@
 
                 <form action="<%=request.getContextPath()%>/register" method="post">
 
-                    <div class="form-group">
-                        <label for="email">Email:</label> <input type="text"
-                                                                      class="form-control" id="email" placeholder="Your e-mail address"
-                                                                      name="email" required>
-                    </div>
+
 
                     <div class="form-group">
                         <label for="username">User Name:</label> <input type="text"
@@ -44,6 +40,12 @@
                         <label for="password">Password:</label> <input type="password"
                                                                     class="form-control" id="password" placeholder="Password"
                                                                     name="password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label> <input type="text"
+                                                                 class="form-control" id="email" placeholder="Your e-mail address"
+                                                                 name="email" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
