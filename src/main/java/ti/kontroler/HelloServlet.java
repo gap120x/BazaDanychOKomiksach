@@ -90,12 +90,25 @@ public class HelloServlet extends HttpServlet {
         {
             int idusera = Integer.parseInt(request.getParameter("id"));
             userDao.deleteUserById(idusera);
-            String delete ="Użytkownik został usunięty";
-            RequestDispatcher dispatcher = null;
-            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+delete);
-            dispatcher.forward(request, response);
+            response.sendRedirect("index.jsp?webpage=showUsers");
         }
+        else if(getAction.equals("block"))
+        {
+            int idusera = Integer.parseInt(request.getParameter("id"));
+            User user = userDao.getUserById(idusera);
+            user.setEnabled(false);
+            userDao.updateUser(user);
+            response.sendRedirect("index.jsp?webpage=showUsers");
+        }
+        else if(getAction.equals("unlock"))
+        {
+            int idusera = Integer.parseInt(request.getParameter("id"));
+            User user = userDao.getUserById(idusera);
+            user.setEnabled(true);
+            userDao.updateUser(user);
+            response.sendRedirect("index.jsp?webpage=showUsers");
 
+        }
         //response.sendRedirect("register.jsp");
     }
 
