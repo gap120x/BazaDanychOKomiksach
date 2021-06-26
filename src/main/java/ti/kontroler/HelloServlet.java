@@ -213,9 +213,18 @@ public class HelloServlet extends HttpServlet {
             comicDao.deleteComicById(idComic);
             response.sendRedirect("index.jsp");
 
-        }
-
+        //response.sendRedirect("register.jsp");
     }
+        else if(getAction.equals("comicDetails")){
+            Integer id = parseInt(request.getParameter("id"));
+            Comic comic = comicDao.getComicById(id);
+
+            request.setAttribute("comic",comic);
+            RequestDispatcher dispatcher2 = null;
+            dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=comicDetails");
+            dispatcher2.forward(request, response);
+
+        }
 
     private void saveEditedComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -277,39 +286,62 @@ public class HelloServlet extends HttpServlet {
         newComic.setTitle(title);
 
         Part fileData = request.getPart("image");
-        String fileName =  new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        fileName += Paths.get(fileData.getSubmittedFileName()).getFileName().toString();
-
-        newComic.setImage(fileName);
 
 
 
-        InputStream fileContent = fileData.getInputStream();
-
-        //System.out.println(fileName);
-        //System.out.println(fileContent.available());
 
 
-        String path = getServletContext().getRealPath("/");
-
-        Path outputPath = Paths.get(path,"usercontent",fileName);
-        //System.out.println(request.getContextPath());
-
-
-        //Files.createDirectories(outputPath.getParent());
-        Files.createFile(outputPath);
+            String fileName2 = Paths.get(fileData.getSubmittedFileName()).getFileName().toString();
 
 
 
-        FileOutputStream output = new FileOutputStream(outputPath.toString());
+
+            if(fileName2.equals("")) {
+
+            }
+            else {
+
+                String fileName =  new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+                fileName = fileName + fileName2;
+
+                newComic.setImage(fileName);
 
 
 
-        System.out.println(fileContent.available());
+                InputStream fileContent = fileData.getInputStream();
 
-        while(fileContent.available() > 0){
-            output.write(fileContent.read());
-        }
+                //System.out.println(fileName);
+                //System.out.println(fileContent.available());
+
+
+                String path = getServletContext().getRealPath("/");
+
+                Path outputPath = Paths.get(path,"usercontent",fileName);
+                //System.out.println(request.getContextPath());
+
+
+                //Files.createDirectories(outputPath.getParent());
+                Files.createFile(outputPath);
+
+
+
+                FileOutputStream output = new FileOutputStream(outputPath.toString());
+
+
+
+                System.out.println(fileContent.available());
+
+                while(fileContent.available() > 0){
+                    output.write(fileContent.read());
+                }
+
+            }
+
+
+
+
+
 
 
         comicDao.updateComic(newComic);
@@ -368,8 +400,6 @@ public class HelloServlet extends HttpServlet {
         String publisher = request.getParameter("publisher");
         String description = request.getParameter("description");
         String title = request.getParameter("title");
-
-
 
         Comic newComic = new Comic();
 

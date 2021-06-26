@@ -24,13 +24,13 @@
     String webpage =request.getParameter("webpage");
 
     if(currentUser.getRole()==1) {
-        webpage = Parser.parse(webpage,"index;favourites;");
+        webpage = Parser.parse(webpage,"index;showUsers;addUser;addComic;editComic;favourites;comicDetails");
     }
     else if(currentUser.getRole()==2) {
-        webpage = Parser.parse(webpage,"index;showUsers;addUser;editUser;addComic;editComic;");
+        webpage = Parser.parse(webpage,"index;showUsers;addUser;editUser;addComic;editComic;comicDetails");
     }
     else {
-        webpage =  Parser.parse(webpage,"index;register;login;");
+        webpage =  Parser.parse(webpage,"index;register;login;comicDetails");
     }
 %>
 

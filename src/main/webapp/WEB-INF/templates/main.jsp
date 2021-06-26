@@ -38,7 +38,7 @@
     <% for(int i=0;i<comics.size();i++) { %>
     <tr>
       <td valign="top" class="text-center" >
-        <a href="bookDetails.html"><img src="usercontent/<%=comics.get(i).getImage()%>" width="100" height="150"/> </a>
+        <a href="index?getaction=comicDetails&id=<%=comics.get(i).getId()%>"><img src="usercontent/<%=comics.get(i).getImage()%>" width="100" height="150"/> </a>
       </td>
       <td valign="top" class="text-center">
         <%=comics.get(i).getTitle()%>
