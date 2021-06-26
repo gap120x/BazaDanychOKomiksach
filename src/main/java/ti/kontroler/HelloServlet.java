@@ -115,61 +115,52 @@ public class HelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        sesja =request.getSession();
-        User currentUser =(User) sesja.getAttribute("currentUser");
+        sesja = request.getSession();
+        User currentUser = (User) sesja.getAttribute("currentUser");
 
-        if(currentUser==null) {
+        if (currentUser == null) {
 
 
-            currentUser= new User();
-            sesja.setAttribute("currentUser",currentUser);
+            currentUser = new User();
+            sesja.setAttribute("currentUser", currentUser);
         }
         String getAction = request.getParameter("getaction");
-        if(getAction==null) getAction="";
-        if(getAction.equals("logout")){
+        if (getAction == null) getAction = "";
+        if (getAction.equals("logout")) {
             currentUser = new User();
             sesja.setAttribute("currentUser", currentUser);
             RequestDispatcher dispatcher = null;
             String logout = "Uzytkownik poprawnie wylogowany";
-            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+logout);
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors=" + logout);
             dispatcher.forward(request, response);
-        }
-        else if(getAction.equals("delete"))
-        {
+        } else if (getAction.equals("delete")) {
             int idusera = parseInt(request.getParameter("id"));
             userDao.deleteUserById(idusera);
             response.sendRedirect("index.jsp?webpage=showUsers");
-        }
-        else if(getAction.equals("block"))
-        {
+        } else if (getAction.equals("block")) {
             int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
             user.setEnabled(false);
             userDao.updateUser(user);
             response.sendRedirect("index.jsp?webpage=showUsers");
-        }
-        else if(getAction.equals("unlock"))
-        {
+        } else if (getAction.equals("unlock")) {
             int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
             user.setEnabled(true);
             userDao.updateUser(user);
             response.sendRedirect("index.jsp?webpage=showUsers");
 
-        }
-        else if(getAction.equals("editUser"))
-        {
+        } else if (getAction.equals("editUser")) {
             int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
 
 
-            request.setAttribute("user",user);
+            request.setAttribute("user", user);
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editUser");
             dispatcher2.forward(request, response);
 
-        }
-        else if(getAction.equals("addFavourite")){
+        } else if (getAction.equals("addFavourite")) {
             User user = (User) sesja.getAttribute("currentUser");
             int idComic = parseInt(request.getParameter("id"));
             Comic comic = comicDao.getComicById(idComic);
@@ -182,49 +173,45 @@ public class HelloServlet extends HttpServlet {
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp");
             dispatcher2.forward(request, response);
-        }
-        else if(getAction.equals("deleteFavourite")){
+        } else if (getAction.equals("deleteFavourite")) {
             User user = (User) sesja.getAttribute("currentUser");
             int idComic = parseInt(request.getParameter("id"));
             Comic comic = comicDao.getComicById(idComic);
-            favoritesDao.deleteFromFavourite(user,comic);
+            favoritesDao.deleteFromFavourite(user, comic);
 
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=favourites");
             dispatcher2.forward(request, response);
-        }
-        else if(getAction.equals("editComic"))
-        {
+        } else if (getAction.equals("editComic")) {
             Integer id = parseInt(request.getParameter("id"));
             Comic comic = comicDao.getComicById(id);
 
 
-            request.setAttribute("comic",comic);
+            request.setAttribute("comic", comic);
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editComic");
 
             dispatcher2.forward(request, response);
 
-        }
-        else if(getAction.equals("delFavourite")){
+        } else if (getAction.equals("delFavourite")) {
 
             int idComic = parseInt(request.getParameter("id"));
             Comic comic = comicDao.getComicById(idComic);
             comicDao.deleteComicById(idComic);
             response.sendRedirect("index.jsp");
 
-        //response.sendRedirect("register.jsp");
-    }
-        else if(getAction.equals("comicDetails")){
+            //response.sendRedirect("register.jsp");
+        } else if (getAction.equals("comicDetails")) {
             Integer id = parseInt(request.getParameter("id"));
             Comic comic = comicDao.getComicById(id);
 
-            request.setAttribute("comic",comic);
+            request.setAttribute("comic", comic);
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=comicDetails");
             dispatcher2.forward(request, response);
 
         }
+    }
 
     private void saveEditedComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -357,6 +344,7 @@ public class HelloServlet extends HttpServlet {
 
         dispatcher.forward(request, response);
     }
+
 
 
 
