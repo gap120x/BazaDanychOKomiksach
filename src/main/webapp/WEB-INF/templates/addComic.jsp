@@ -2,14 +2,14 @@
 <content>
     <h1 id="naglowek" class="text-center">Dodawanie komiksu</h1>
 
-    <form id="editComic" action="index?action=saveComic" method="post" enctype="text/plain">
+    <form id="editComic" action="index?action=saveComic" method="post" enctype="multipart/form-data">
         <div>
             <div class="row heading text-center">
                 <div class="col-md-12">
                     <ul class="list-group text-center">
 
                         <div class="d-flex justify-content-center">
-                            <input type="text" class="form-control" id="comicName" placeholder="Tytuł" style="width:200px">
+                            <input type="text" name="title" class="form-control" id="comicName" placeholder="Tytuł" style="width:200px">
 
 
                         </div>
@@ -48,43 +48,43 @@
                         <tr class="text-center">
                             <td>Autor</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicAutor" placeholder="Autor">
+                                <input type="text" name="author" class="form-control" id="comicAutor" placeholder="Autor">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Kategoria</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicCategory" placeholder="Kategoria">
+                                <input type="text"  name="category" class="form-control" id="comicCategory" placeholder="Kategoria">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Język</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicLanguage" placeholder="Język">
+                                <input type="text"  name="language" class="form-control" id="comicLanguage" placeholder="Język">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Liczba stron</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicPages" placeholder="Liczba stron">
+                                <input type="text" name="pageCount" class="form-control" id="comicPages" placeholder="Liczba stron">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Oprawa</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicCover" placeholder="Miękka">
+                                <input type="text" name="cover" class="form-control" id="comicCover" placeholder="Miękka">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Rok wydania</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicYear" placeholder="2021">
+                                <input type="text" name="issueDate" class="form-control" id="comicYear" placeholder="2021">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Wydawnictwo</td>
                             <td class="form-group">
-                                <input type="text"class="form-control" id="comicPublishing" placeholder="Wydawnictwo">
+                                <input type="text" name="publisher" class="form-control" id="comicPublishing" placeholder="Wydawnictwo">
                             </td>
                         </tr>
                     </table>

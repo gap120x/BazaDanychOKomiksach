@@ -40,7 +40,7 @@ public class Comic implements Serializable {
     private String cover;
 
     @Column(name = "issue_date")
-    private Date issueDate;
+    private Integer issueDate;
 
     @Column(name = "publisher")
     @Type(type="text")
@@ -113,11 +113,11 @@ public class Comic implements Serializable {
         this.cover = cover;
     }
 
-    public Date getIssueDate() {
+    public Integer getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(Integer issueDate) {
         this.issueDate = issueDate;
     }
 

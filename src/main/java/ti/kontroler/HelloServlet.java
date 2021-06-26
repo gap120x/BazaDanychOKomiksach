@@ -3,23 +3,39 @@ package ti.kontroler;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+
+import ti.dao.ComicDao;
 import ti.dao.UserDao;
+import ti.model.Comic;
 import ti.model.User;
 import ti.util.Parser;
 
+import static java.lang.Integer.parseInt;
+
 @WebServlet("/index")
+@MultipartConfig
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
+    private ComicDao comicDao;
     public HttpSession sesja;
     public void init() {
         userDao = new UserDao();
+        comicDao = new ComicDao();
 
         User adminCheck = userDao.getUserByUsername("admin");
         User userCheck = userDao.getUserByUsername("user");
@@ -76,9 +92,15 @@ public class HelloServlet extends HttpServlet {
         {
             saveEditedUser(request,response);
         }
+        else if(action.equals("saveComic"))
+        {
+            saveComic(request,response);
+
+        }
 
 
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -103,13 +125,13 @@ public class HelloServlet extends HttpServlet {
         }
         else if(getAction.equals("delete"))
         {
-            int idusera = Integer.parseInt(request.getParameter("id"));
+            int idusera = parseInt(request.getParameter("id"));
             userDao.deleteUserById(idusera);
             response.sendRedirect("index.jsp?webpage=showUsers");
         }
         else if(getAction.equals("block"))
         {
-            int idusera = Integer.parseInt(request.getParameter("id"));
+            int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
             user.setEnabled(false);
             userDao.updateUser(user);
@@ -117,7 +139,7 @@ public class HelloServlet extends HttpServlet {
         }
         else if(getAction.equals("unlock"))
         {
-            int idusera = Integer.parseInt(request.getParameter("id"));
+            int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
             user.setEnabled(true);
             userDao.updateUser(user);
@@ -126,7 +148,7 @@ public class HelloServlet extends HttpServlet {
         }
         else if(getAction.equals("editUser"))
         {
-            int idusera = Integer.parseInt(request.getParameter("id"));
+            int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
             RequestDispatcher dispatcher = null;
             request.setAttribute("user",user);
@@ -136,6 +158,99 @@ public class HelloServlet extends HttpServlet {
 
         }
         //response.sendRedirect("register.jsp");
+    }
+
+    private void saveComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String author = request.getParameter("author");
+        String category = request.getParameter("category");
+        String language = request.getParameter("language");
+        Integer pageCount = parseInt(request.getParameter("pageCount"));
+        String cover = request.getParameter("cover");
+        Integer issueDate = parseInt(request.getParameter("issueDate"));
+        String publisher = request.getParameter("publisher");
+        String description = request.getParameter("description");
+        String title = request.getParameter("title");
+
+        Comic newComic = new Comic();
+
+        newComic.setAuthor(author);
+        newComic.setCategory(category);
+        newComic.setLanguage(language);
+        newComic.setPageCount(pageCount);
+        newComic.setCover(cover);
+        newComic.setIssueDate(issueDate);
+        newComic.setPublisher(publisher);
+        newComic.setDescription(description);
+        newComic.setTitle(title);
+
+
+
+
+        //image processing
+
+
+
+
+        Part fileData = request.getPart("cover");
+        String fileName =  new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        fileName += Paths.get(fileData.getSubmittedFileName()).getFileName().toString();
+
+        newComic.setImage(fileName);
+
+        InputStream fileContent = fileData.getInputStream();
+
+        //System.out.println(fileName);
+        //System.out.println(fileContent.available());
+
+
+        String path = getServletContext().getRealPath("/");
+
+
+
+        Path outputPath = Paths.get(path,"usercontent",fileName);
+        //System.out.println(request.getContextPath());
+        System.out.println(outputPath);
+
+
+        //Files.createDirectories(outputPath.getParent());
+        Files.createFile(outputPath);
+
+
+
+        FileOutputStream output = new FileOutputStream(outputPath.toString());
+
+
+
+        System.out.println(fileContent.available());
+
+        while(fileContent.available() > 0){
+            output.write(fileContent.read());
+        }
+
+        //File file = new File(".");
+        //Arrays.stream(file.list()).forEach(System.out::println);
+
+
+
+        //request.getParts().stream().forEach(part -> System.out.println(part.getName()));
+
+
+
+        comicDao.saveComic(newComic);
+
+        String errors = "save comic";
+
+
+
+
+
+        RequestDispatcher dispatcher = null;
+
+        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+
+        dispatcher.forward(request, response);
+
     }
 
     private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -156,7 +271,7 @@ public class HelloServlet extends HttpServlet {
         } else {
             enabled = false;
         }
-        Integer role = Integer.parseInt(role1);
+        Integer role = parseInt(role1);
 
 
         RequestDispatcher dispatcher = null;
@@ -254,7 +369,7 @@ public class HelloServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
     private void saveEditedUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = parseInt(request.getParameter("id"));
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -271,7 +386,7 @@ public class HelloServlet extends HttpServlet {
        {
            enabled =false;
        }
-        Integer role = Integer.parseInt(role1);
+        Integer role = parseInt(role1);
         RequestDispatcher dispatcher = null;
 
 

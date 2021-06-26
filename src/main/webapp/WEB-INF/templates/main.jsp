@@ -51,7 +51,7 @@
     <% for(int i=0;i<comics.size();i++) { %>
     <tr>
       <td valign="top" class="text-center" >
-        <a href="bookDetails.html"><img src="static/gfx/lucyfer.jpg" width="100" height="150"/> </a>
+        <a href="bookDetails.html"><img src="usercontent/<%=comics.get(i).getImage()%>" width="100" height="150"/> </a>
       </td>
       <td valign="top" class="text-center">
         <%=comics.get(i).getTitle()%>
@@ -66,6 +66,7 @@
       <td valign="top" class="text-center">
         <%=comics.get(i).getIssueDate()%>
       </td>
+
       <td valign="top" class="text-center">
         <a href="" class="favouriteComicBtn"> <button type="button" id="hearbutton" class="btn btn-outline-danger btn-lg">  <i id="heart" class="fa fa-heart"></i> Ulubione</button> </a>
         <button onclick="location.href='editComic.html';" type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button>
@@ -84,7 +85,7 @@
     <tr>
 
       <td valign="top" class="text-center" >
-        <a href="bookDetails.html"><img src="static/gfx/muminki.jpg" width="100" height="150"/> </a>
+        <a href="bookDetails.html"><img src="usercontent/rat.jpg" width="100" height="150"/> </a>
       </td>
       <td valign="top" class="text-center">
         Muminki. Tom 1
