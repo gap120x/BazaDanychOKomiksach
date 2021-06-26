@@ -22,7 +22,7 @@
                         <div class="d-flex justify-content-center">
 
 
-                            <img id="coverImg" src="usercontent/<%=comic.getImage()%>"width="300" height="400" alt="okładka"/>
+                            <img id="coverImg" src="usercontent/<%=comic.getImage()%>" width="300" height="400" alt="okładka"/>
 
 
                         </div>
@@ -30,7 +30,7 @@
                             <p class="btn btn-info btn-xs comicBtn">
 
                                 <i class="fa fa-edit"></i> Zmień okładkę </br>
-                                <input type="file" id="cover" name="image" onchange="document.getElementById('coverImg').src = window.URL.createObjectURL(this.files[0])"s/>
+                                <input type="file" id="cover" value="" name="image" onchange="document.getElementById('coverImg').src = window.URL.createObjectURL(this.files[0])"s/>
 
                             </p>
 
