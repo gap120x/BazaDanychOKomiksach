@@ -30,11 +30,6 @@
 
                 <%}%>
 
-                <% if(currentUser.getRole()>0){ %>
-                <li class="navbar-item">
-                    <a class="nav-link" href="editAccount.html">Edytuj konto</a>
-                </li>
-                <%}%>
 
                 <% if(currentUser.getRole()<0 ){ %>
                 <li class="navbar-item">

@@ -202,12 +202,19 @@ public class HelloServlet extends HttpServlet {
             request.setAttribute("comic",comic);
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editComic");
-            System.out.println("\n comic \n");
+
             dispatcher2.forward(request, response);
 
         }
+        else if(getAction.equals("delFavourite")){
 
-        //response.sendRedirect("register.jsp");
+            int idComic = parseInt(request.getParameter("id"));
+            Comic comic = comicDao.getComicById(idComic);
+            comicDao.deleteComicById(idComic);
+            response.sendRedirect("index.jsp");
+
+        }
+
     }
 
     private void saveEditedComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -278,12 +285,12 @@ public class HelloServlet extends HttpServlet {
 
 
 
-        String errors = "comic updates";
+        String info = "Komiks zaktualizowany!";
 
 
         RequestDispatcher dispatcher = null;
 
-        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp?errors="+info);
 
         dispatcher.forward(request, response);
     }
@@ -371,15 +378,12 @@ public class HelloServlet extends HttpServlet {
 
         comicDao.saveComic(newComic);
 
-        String errors = "save comic";
-
-
-
+        String info = "Komiks został pomyślnie dodany!";
 
 
         RequestDispatcher dispatcher = null;
 
-        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp?errors="+info);
 
         dispatcher.forward(request, response);
 

@@ -20,7 +20,6 @@
                 <th scope="col" class="text-center">Nazwa użytkownika</th>
                 <th scope="col" class="text-center">Email</th>
                 <th scope="col" class="text-center">Typ użytkownika</th>
-                <th scope="col" class="text-center">Czy zablokowany</th>
                 <th scope="col" class="text-center" colspan="2">Operacje</th>
             </tr>
             <% for(int i=0;i<user.size();i++) { %>
@@ -28,8 +27,22 @@
             <tr>
                 <td scope="col" class="text-center"><%=user.get(i).getUsername()%></td>
                 <td scope="col" class="text-center"><%=user.get(i).getEmail()%></td>
-                <td scope="col" class="text-center"><%=user.get(i).getRole()%></td>
-                <td scope="col" class="text-center"><%=user.get(i).getEnabled()%></td>
+                <td scope="col" class="text-center"><%
+                    String role = "";
+                    switch(user.get(i).getRole()){
+                        case 1:
+                            role = "standardowy";
+                            break;
+                        case 2:
+                            role = "admin";
+                            break;
+
+                    }
+
+                %>
+                    <%=role%>
+                </td>
+
 
                 <td valign="top" class="text-center">
                     <a href="index?getaction=editUser&id=<%=user.get(i).getId()%>"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>

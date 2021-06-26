@@ -114,6 +114,29 @@ public class ComicDao {
         }
     }
 
+
+    public void deleteComicById(int id)
+    {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+
+            // Delete a persistent object
+            Comic comic = session.get(Comic.class, id);
+            if (comic != null) {
+                session.delete(comic);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
     }
 
 

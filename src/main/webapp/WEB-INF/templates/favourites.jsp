@@ -15,7 +15,14 @@
 
 
     </div>
+
+    <%if(comics.isEmpty()){%>
+    <h2 class="text-center">Brak ulubionych komiksów</h2>
+    <%
+    } else{ %>
     <h2 class="text-center">Lista Twoich ulubionych komiksów</h2>
+
+
     <table id="users" class="table table-active">
         <tr>
             <th scope="col" class="text-center">Okładka</th>
@@ -55,5 +62,7 @@
         <%}%>
 
     </table>
+    <%}%>
+
     </div>
 </content>

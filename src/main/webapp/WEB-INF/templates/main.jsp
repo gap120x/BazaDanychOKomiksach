@@ -2,6 +2,7 @@
 <%@ page import="ti.model.Comic" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<jsp:useBean id="currentUser" class="ti.model.User" scope="session"/>
 
 <%
 
@@ -11,29 +12,13 @@
 %>
 
 <content>
-  <div id="books" class="show">
-    <form method="post" id="wyszukiwarka" action="">
-      <div class="input-group">
 
-        <select  class="form-control" >
-          <option id="aaa" value="tytul">Tytuł</option>
-          <option value="autorzy">Autorzy</option>
-          <option value="wydawnictwo">Wydawnicto</option>
-          <option value="wydawnictwo">Data Wydania</option>
-        </select>
-        <input type="text" class="form-control" placeholder="Wyszukaj">
-        <div class="input-group-append">
-          <button class="btn btn-secondary" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-    </form>
 
   </div>
 
-  </div>
-
+  <%if(currentUser.getRole()==2){%>
   <h2 class="text-center"><a href="index.jsp?webpage=addComic"><button type="button" id="dodajkomiksbutton" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"> Dodaj nowy komiks </i></button></a></h2>
-
+<%}%>
   <h2 class="text-center">Lista komiksów</h2>
 
   <table id="users" class="table table-active">
@@ -44,7 +29,9 @@
       <th scope="col" class="text-center">Autorzy</th>
       <th scope="col" class="text-center">Wydawnictwo</th>
       <th scope="col" class="text-center">Data Wydania</th>
+      <%if(currentUser.getRole()>0){%>
       <th scope="col" class="text-center" colspan="2">Operacje</th>
+      <%}%>
     </tr>
 
 
@@ -68,11 +55,19 @@
       </td>
 
       <td valign="top" class="text-center">
+        <%if(currentUser.getRole()==1){%>
         <a href="index?getaction=addFavourite&id=<%=comics.get(i).getId()%>" class="favouriteComicBtn"> <button type="button" id="hearbutton" class="btn btn-outline-danger btn-lg">  <i id="heart" class="fa fa-heart"></i> Ulubione</button> </a>
-        <a href="index?getaction=editComic&id=<%=comics.get(i).getId()%>"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>
-        <button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-danger btn-xs comicBtn"><i class="fa fa-trash"></i> Usuń </button>
-      </td>
+       <%
+        }
+         if (currentUser.getRole() == 2) {
 
+
+       %>
+
+        <a href="index?getaction=editComic&id=<%=comics.get(i).getId()%>"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>
+        <a href="index?getaction=delFavourite&id=<%=comics.get(i).getId()%>" ><button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-danger btn-xs comicBtn"><i class="fa fa-trash"></i> Usuń </button> </a>
+      </td>
+<%}%>
 
     </tr>
 
