@@ -16,7 +16,7 @@
 
 <% if(currentUser.getRole() == 1){ %>
                 <li class="navbar-item">
-                    <a class="nav-link" href="favourite.html">Ulubione</a>
+                    <a class="nav-link" href="index.jsp?webpage=favourites">Ulubione</a>
                 </li>
 
                 <%}%>

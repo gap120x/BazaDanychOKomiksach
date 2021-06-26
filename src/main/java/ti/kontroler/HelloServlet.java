@@ -19,8 +19,10 @@ import java.util.Arrays;
 import java.util.Date;
 
 import ti.dao.ComicDao;
+import ti.dao.FavoritesDao;
 import ti.dao.UserDao;
 import ti.model.Comic;
+import ti.model.Favorites;
 import ti.model.User;
 import ti.util.Parser;
 
@@ -32,10 +34,13 @@ public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
     private ComicDao comicDao;
+    private FavoritesDao favoritesDao;
     public HttpSession sesja;
+
     public void init() {
         userDao = new UserDao();
         comicDao = new ComicDao();
+        favoritesDao = new FavoritesDao();
 
         User adminCheck = userDao.getUserByUsername("admin");
         User userCheck = userDao.getUserByUsername("user");
@@ -156,6 +161,20 @@ public class HelloServlet extends HttpServlet {
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editUser");
             dispatcher2.forward(request, response);
 
+        }
+        else if(getAction.equals("addFavourite")){
+            User user = (User) sesja.getAttribute("currentUser");
+            int idComic = parseInt(request.getParameter("id"));
+            Comic comic = comicDao.getComicById(idComic);
+            Favorites favorites = new Favorites();
+            favorites.setUser(user);
+            favorites.setComic(comic);
+
+            favoritesDao.saveFavourites(favorites);
+
+            RequestDispatcher dispatcher2 = null;
+            dispatcher2 = request.getRequestDispatcher("index.jsp");
+            dispatcher2.forward(request, response);
         }
         //response.sendRedirect("register.jsp");
     }

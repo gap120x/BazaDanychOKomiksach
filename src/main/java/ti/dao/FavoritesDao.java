@@ -1,7 +1,9 @@
 package ti.dao;
+import ti.model.Favorites;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import ti.model.Comic;
 import ti.model.User;
@@ -32,5 +34,29 @@ public class FavoritesDao {
 
         return comic;
     }
+
+
+    public void saveFavourites(Favorites favorites) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // save the user object
+            session.save(favorites);
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
 
 }

@@ -1,5 +1,6 @@
 package ti.dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ti.model.Comic;
@@ -44,6 +45,23 @@ public class ComicDao {
             }
         }
         return comics;
+    }
+
+    public Comic getComicById(int comic_id) {
+        Session session = null;
+        Comic comic = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            comic =  (Comic) session.get(Comic.class, comic_id);
+            Hibernate.initialize(comic);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return comic;
     }
 
     }

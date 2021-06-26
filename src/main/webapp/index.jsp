@@ -24,7 +24,7 @@
     String webpage =request.getParameter("webpage");
 
     if(currentUser.getRole()==1) {
-        webpage = Parser.parse(webpage,"index;");
+        webpage = Parser.parse(webpage,"index;favourites");
     }
     else if(currentUser.getRole()==2) {
         webpage = Parser.parse(webpage,"index;showUsers;addUser;editUser");
