@@ -22,7 +22,7 @@
 
   </div>
 
-  <h2 class="text-center"><a href="addComic.html"><button type="button" id="dodajkomiksbutton" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"> Dodaj nowy komiks </i></button></a></h2>
+  <h2 class="text-center"><a href="index.jsp?webpage=addComic"><button type="button" id="dodajkomiksbutton" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"> Dodaj nowy komiks </i></button></a></h2>
 
   <h2 class="text-center">Lista komiksów</h2>
 

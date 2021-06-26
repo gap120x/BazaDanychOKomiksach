@@ -30,7 +30,7 @@
         webpage = Parser.parse(webpage,"index;showUsers");
     }
     else {
-        webpage =  Parser.parse(webpage,"index;register;login");
+        webpage =  Parser.parse(webpage,"index;register;login;addComic");
     }
 %>
 

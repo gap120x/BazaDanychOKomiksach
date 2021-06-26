@@ -8,15 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import ti.dao.UserDao;
 import ti.model.User;
+import ti.util.ImgIO;
 
 @WebServlet("/index")
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
     public HttpSession sesja;
+    private ImgIO imgIO;
+
     public void init() {
         userDao = new UserDao();
     }
@@ -25,6 +29,8 @@ public class HelloServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
 
         sesja =request.getSession();
         User currentUser =(User) sesja.getAttribute("currentUser");
@@ -36,6 +42,10 @@ public class HelloServlet extends HttpServlet {
             sesja.setAttribute("currentUser",currentUser);
         }
         String action = request.getParameter("action");
+
+
+
+
         if(action==null) action="";
         if(action.equals("register"))
         {
@@ -44,6 +54,11 @@ public class HelloServlet extends HttpServlet {
         else if(action.equals("login")){
 
             login(request,response);
+
+        }
+        else if(action.equals("saveComic")){
+
+            saveComic(request,response);
 
         }
 
@@ -84,6 +99,33 @@ public class HelloServlet extends HttpServlet {
         //response.sendRedirect("register.jsp");
     }
 
+    private void saveComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        RequestDispatcher dispatcher = null;
+
+
+        String errors = "";
+
+        errors+="saveComic: <br/>";
+
+        System.out.print(request.getParameter("cover"));
+
+
+
+
+
+
+
+
+
+
+
+        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+
+        dispatcher.forward(request, response);
+
+    }
+
     private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -97,6 +139,7 @@ public class HelloServlet extends HttpServlet {
 
         User usernameCheck = userDao.getUserByUsername(username);
 
+        //check if email is free
 
         User emailCheck = userDao.getUserByEmail(email);
 
