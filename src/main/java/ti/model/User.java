@@ -1,13 +1,12 @@
 package ti.model;
 
 import java.io.Serializable;
+import java.nio.file.attribute.FileAttributeView;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 // 1 - zalogowany/standardowy user
 // 2 - administrator
@@ -36,6 +35,9 @@ public class User implements Serializable {
 
     @Column(name = "role")
     private Integer role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Favorites> favorites = new HashSet<Favorites>();
 
     public User() {
         this.enabled = true;
@@ -91,10 +93,13 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public Set<Favorites> getFavorites() {
+       return favorites;
+    }
 
-
-
-
+    public void setFavorites(Set<Favorites> favorites) {
+       this.favorites = favorites;
+    }
 
     public String toString(){
 

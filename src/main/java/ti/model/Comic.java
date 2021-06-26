@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -59,6 +59,9 @@ public class Comic implements Serializable {
     @Type(type="text")
     private String title;
 
+    @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY,
+           cascade = CascadeType.ALL)
+    private Set<Favorites> favorites = new HashSet<Favorites>();
 
 
     public static long getSerialVersionUID() {
@@ -153,7 +156,11 @@ public class Comic implements Serializable {
         this.title = title;
     }
 
+    public Set<Favorites> getFavorites() {
+        return favorites;
+    }
 
-
-
+    public void setFavorites(Set<Favorites> favorites) {
+        this.favorites = favorites;
+    }
 }
