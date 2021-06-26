@@ -50,9 +50,9 @@
                 <%}%>
 
                 <% if(currentUser.getRole() >0) {%>
-                <form action="index?action=logout" method="post">
-                    <input type="submit" name="logout" value="Wyloguj" />
-                </form>
+                <li class="navbar-item">
+                    <a class="nav-link" href="index?getaction=logout">Wyloguj</a>
+                </li>
                 <%}%>
             </ul>
         </div>

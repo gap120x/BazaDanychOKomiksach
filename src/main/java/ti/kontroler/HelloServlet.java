@@ -46,20 +46,31 @@ public class HelloServlet extends HttpServlet {
             login(request,response);
 
         }
-        else if(action.equals("logout")){
-           currentUser = new User();
-            sesja.setAttribute("currentUser", currentUser);
-            RequestDispatcher dispatcher = null;
-            String logout = "Uzytkownik Poprawnie Wylogowany";
-            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+logout);
-            dispatcher.forward(request, response);
 
-        }
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        sesja =request.getSession();
+        User currentUser =(User) sesja.getAttribute("currentUser");
+
+        if(currentUser==null) {
+
+
+            currentUser= new User();
+            sesja.setAttribute("currentUser",currentUser);
+        }
+        String getAction = request.getParameter("getaction");
+        if(getAction==null) getAction="";
+        if(getAction.equals("logout")){
+            currentUser = new User();
+            sesja.setAttribute("currentUser", currentUser);
+            RequestDispatcher dispatcher = null;
+            String logout = "Uzytkownik Poprawnie Wylogowany";
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+logout);
+            dispatcher.forward(request, response);
+        }
 
         //response.sendRedirect("register.jsp");
     }
@@ -68,7 +79,6 @@ public class HelloServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-
 
 
         RequestDispatcher dispatcher = null;
