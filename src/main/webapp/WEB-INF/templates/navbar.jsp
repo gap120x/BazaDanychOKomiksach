@@ -25,7 +25,7 @@
                 <% if(currentUser.getRole() == 2){ %>
 
                 <li class="navbar-item">
-                    <a class="nav-link" href="showUsers.html">Zarządzanie użytkownikami</a>
+                    <a class="nav-link" href="index.jsp?webpage=showUsers">Zarządzanie użytkownikami</a>
                 </li>
 
                 <%}%>

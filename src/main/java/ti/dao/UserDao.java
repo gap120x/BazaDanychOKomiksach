@@ -8,6 +8,8 @@ import org.hibernate.query.Query;
 import ti.model.User;
 import ti.util.HibernateUtil;
 
+import java.util.List;
+
 
 public class UserDao {
 
@@ -127,6 +129,22 @@ public class UserDao {
             }
             e.printStackTrace();
         }
+    }
+    public List<User> getAll() {
+        Session session = null;
+        List<User> user=null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            user=session.createQuery("from User").list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return user;
     }
     }
 

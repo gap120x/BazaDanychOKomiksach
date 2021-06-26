@@ -15,7 +15,7 @@
     <link href="static/css/navigation.css" rel="stylesheet" />
     <link href="static/css/register.css" rel="stylesheet" />
     <link href="static/css/login.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="static/css/showUser.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
@@ -27,7 +27,7 @@
         webpage = Parser.parse(webpage,"index;");
     }
     else if(currentUser.getRole()==2) {
-        webpage = Parser.parse(webpage,"index;");
+        webpage = Parser.parse(webpage,"index;showUsers");
     }
     else {
         webpage =  Parser.parse(webpage,"index;register;login");

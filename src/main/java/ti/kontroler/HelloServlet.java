@@ -61,9 +61,6 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-
-
         //response.sendRedirect("register.jsp");
     }
 
@@ -138,8 +135,15 @@ public class HelloServlet extends HttpServlet {
         if(usernameCheck != null){
             if(usernameCheck.getPassword().equals(password))
             {
-                sesja.setAttribute("currentUser", usernameCheck);
-                dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
+               if(usernameCheck.getEnabled()) {
+                   sesja.setAttribute("currentUser", usernameCheck);
+                   dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
+               }
+               else
+               {
+                   errors +="Użytkownik został zablokowany<br/> ";
+                   dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+               }
             }
             else //nieprawidlowe haslo
             {
