@@ -27,7 +27,7 @@
         webpage = Parser.parse(webpage,"index;");
     }
     else if(currentUser.getRole()==2) {
-        webpage = Parser.parse(webpage,"index;showUsers");
+        webpage = Parser.parse(webpage,"index;showUsers;addUser;editUser");
     }
     else {
         webpage =  Parser.parse(webpage,"index;register;login");

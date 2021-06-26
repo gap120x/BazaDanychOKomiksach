@@ -10,7 +10,7 @@
 <content>
 
 
-    <h2 class="text-center" id="userList"><a href="addUser.html"><button type="button" id="dodajkomiksbutton" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"> Dodaj nowego użytkownika </i></button></a></h2>
+    <h2 class="text-center" id="userList"><a href="index.jsp?webpage=addUser"><button type="button" id="dodajkomiksbutton" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"> Dodaj nowego użytkownika </i></button></a></h2>
 
 
     <div class="show">
@@ -32,7 +32,7 @@
                 <td scope="col" class="text-center"><%=user.get(i).getEnabled()%></td>
 
                 <td valign="top" class="text-center">
-                    <a href="editUser.html"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>
+                    <a href="index?getaction=editUser&id=<%=user.get(i).getId()%>"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>
                     <a href="index?getaction=delete&id=<%=user.get(i).getId()%>"><button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-danger btn-xs comicBtn"><i class="fa fa-trash"></i> Usuń </button></a>
                    <% if(user.get(i).getEnabled()){%>
                     <a href="index?getaction=block&id=<%=user.get(i).getId()%>"><button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-warning btn-xs comicBtn"><i class="fa fa-lock"> Zablokuj </i></button></a>

@@ -46,6 +46,10 @@ public class HelloServlet extends HttpServlet {
             login(request,response);
 
         }
+        else if(action.equals("saveEditedUser"))
+        {
+            saveEditedUser(request,response);
+        }
 
 
     }
@@ -94,6 +98,17 @@ public class HelloServlet extends HttpServlet {
             response.sendRedirect("index.jsp?webpage=showUsers");
 
         }
+        else if(getAction.equals("editUser"))
+        {
+            int idusera = Integer.parseInt(request.getParameter("id"));
+            User user = userDao.getUserById(idusera);
+            RequestDispatcher dispatcher = null;
+            request.setAttribute("user",user);
+            RequestDispatcher dispatcher2 = null;
+            dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editUser");
+            dispatcher2.forward(request, response);
+
+        }
         //response.sendRedirect("register.jsp");
     }
 
@@ -101,8 +116,20 @@ public class HelloServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-
-
+        String role1 = request.getParameter("role");
+        String enabled1= request.getParameter("enabled");
+        Boolean enabled;
+        if(role1 ==null) { role1="1";}
+        if(enabled1==null){enabled1="1";}
+        if(enabled1=="1")
+        {
+            enabled = true;
+        }
+        else
+        {
+            enabled =false;
+        }
+       Integer role = Integer.parseInt(role1);
         RequestDispatcher dispatcher = null;
 
 
@@ -118,7 +145,8 @@ public class HelloServlet extends HttpServlet {
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
-            user.setRole(1);
+            user.setRole(role);
+            user.setEnabled(enabled);
             System.out.print(user);
 
 
@@ -185,6 +213,69 @@ public class HelloServlet extends HttpServlet {
         {
             errors +="Nieprawidłowy Login<br/>";
             dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+        }
+        dispatcher.forward(request, response);
+    }
+    private void saveEditedUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String role1 = request.getParameter("role");
+        String enabled1= request.getParameter("enabled");
+        Boolean enabled;
+        if(role1 ==null) { role1="1";}
+        if(enabled1==null){enabled1="1";}
+       if(enabled1=="1")
+       {
+           enabled = true;
+       }
+       else
+       {
+           enabled =false;
+       }
+        Integer role = Integer.parseInt(role1);
+        RequestDispatcher dispatcher = null;
+
+
+        //check if username is free
+        User myUser = userDao.getUserById(id);
+        User usernameCheck = userDao.getUserByUsername(username);
+        User emailCheck = userDao.getUserByEmail(email);
+
+        if(usernameCheck.getUsername().equals(myUser.getUsername())  && emailCheck.getEmail().equals(myUser.getEmail())){
+            User user = new User();
+            user.setId(id);
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setRole(role);
+            user.setEnabled(enabled);
+
+            userDao.updateUser(user);
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
+
+        }
+        else{
+
+            String errors = "";
+
+            errors+="Register failed, please correct the following errors and retry: <br/>";
+
+            if(usernameCheck != null && !(usernameCheck.getUsername().equals(myUser.getUsername()))){
+                errors += "Username " + username + " is already taken, please choose a different username <br/> ";
+            }
+
+            if(emailCheck != null && !(emailCheck.getEmail().equals(myUser.getEmail()))){
+                errors += "Email " + email + " is already taken, please choose a different e-mail";
+            }
+
+
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+
+
+
         }
         dispatcher.forward(request, response);
     }
