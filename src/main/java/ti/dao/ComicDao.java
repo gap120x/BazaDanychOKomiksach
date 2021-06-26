@@ -3,6 +3,7 @@ package ti.dao;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import ti.model.Comic;
 import ti.model.User;
 import ti.util.HibernateUtil;
@@ -29,22 +30,34 @@ public class ComicDao {
         }
     }
 
+    public Comic getComicByTitle(String comic_title){
 
-    public List<Comic> getAll() {
         Session session = null;
-        List<Comic> comics=null;
+        Comic comic = null;
+
         try {
+
             session = HibernateUtil.getSessionFactory().openSession();
 
-            comics=session.createQuery("from Comic").list();
-        } catch (Exception e) {
+            Query<Comic> query = session.createQuery("from Comic c where c.title=:title");
+            query.setParameter("title", comic_title);
+            comic = query.uniqueResult();
+
+
+
+            Hibernate.initialize(comic);
+
+
+        }
+        catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
             }
         }
-        return comics;
+
+        return comic;
     }
 
     public Comic getComicById(int comic_id) {
@@ -64,7 +77,45 @@ public class ComicDao {
         return comic;
     }
 
+
+    public List<Comic> getAll() {
+        Session session = null;
+        List<Comic> comics=null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            comics=session.createQuery("from Comic").list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return comics;
     }
+
+    public void updateComic(Comic comic){
+
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // save the user object
+            session.evict(comic);
+            session.update(comic);
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    }
+
 
 
 

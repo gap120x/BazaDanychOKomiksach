@@ -1,25 +1,28 @@
 <%@ page import="ti.model.Comic" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    Comic comic = (Comic) request.getAttribute("comic");
+
+
+%>
 <content>
-    <h1 id="naglowek" class="text-center">Dodawanie komiksu</h1>
 
-
-    <form id="editComic" action="index?action=saveComic" method="post" enctype="multipart/form-data">
+    <form id="editComic" action="index?action=saveEditedComic" method="post" enctype="multipart/form-data">
         <div>
             <div class="row heading text-center">
                 <div class="col-md-12">
                     <ul class="list-group text-center">
 
                         <div class="d-flex justify-content-center">
-                            <input type="text" name="title" class="form-control" id="comicName" placeholder="Tytuł" style="width:200px">
+                            <input type="text" name="title" class="form-control" id="comicName" value="<%=comic.getTitle()%>" style="width:200px">
 
 
                         </div>
                         <div class="d-flex justify-content-center">
 
 
-                            <img id="coverImg" src="static/gfx/add.png" width="300" height="400" alt="okładka"/>
+                            <img id="coverImg" src="usercontent/<%=comic.getImage()%>"width="300" height="400" alt="okładka"/>
 
 
                         </div>
@@ -27,10 +30,7 @@
                             <p class="btn btn-info btn-xs comicBtn">
 
                                 <i class="fa fa-edit"></i> Zmień okładkę </br>
-
-
-                            <input type="file" id="cover" name="image" onchange="document.getElementById('coverImg').src = window.URL.createObjectURL(this.files[0])"s/>
-
+                                <input type="file" id="cover" name="image" onchange="document.getElementById('coverImg').src = window.URL.createObjectURL(this.files[0])"s/>
 
                             </p>
 
@@ -50,44 +50,46 @@
                     <table class="table table-active" style="height:100%">
                         <tr class="text-center">
                             <td>Autor</td>
+
+                            <input type="hidden" name="id" value="<%=comic.getId()%>">
                             <td class="form-group">
-                                <input type="text" name="author" class="form-control" id="comicAutor" placeholder="Autor">
+                                <input type="text"  name="author" class="form-control" id="comicAutor" value="<%=comic.getAuthor()%>">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Kategoria</td>
                             <td class="form-group">
-                                <input type="text"  name="category" class="form-control" id="comicCategory" placeholder="Kategoria">
+                                <input type="text" name="category" class="form-control" id="comicCategory" value="<%=comic.getCategory()%>">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Język</td>
                             <td class="form-group">
-                                <input type="text"  name="language" class="form-control" id="comicLanguage" placeholder="Język">
+                                <input type="text" name="language" class="form-control" id="comicLanguage" value="<%=comic.getLanguage()%>i">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Liczba stron</td>
                             <td class="form-group">
-                                <input type="text" name="pageCount" class="form-control" id="comicPages" placeholder="Liczba stron">
+                                <input type="text" name="pageCount" class="form-control" id="comicPages"  value="<%=comic.getPageCount()%>">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Oprawa</td>
                             <td class="form-group">
-                                <input type="text" name="cover" class="form-control" id="comicCover" placeholder="Miękka">
+                                <input type="text" name="cover" class="form-control" id="comicCover" value="<%=comic.getCover()%>">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Rok wydania</td>
                             <td class="form-group">
-                                <input type="text" name="issueDate" class="form-control" id="comicYear" placeholder="2021">
+                                <input type="text" name="issueDate" class="form-control" id="comicYear" value="<%=comic.getIssueDate()%>">
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td>Wydawnictwo</td>
                             <td class="form-group">
-                                <input type="text" name="publisher" class="form-control" id="comicPublishing" placeholder="Wydawnictwo">
+                                <input type="text" name="publisher" class="form-control" id="comicPublishing" value="<%=comic.getPublisher()%>">
                             </td>
                         </tr>
                     </table>
@@ -101,7 +103,8 @@
                         <tr class="text-center">
                             <td>
 							<textarea name="description" class="h-100 w-100" form="editComic">
-							</textarea>
+                                <%=comic.getDescription()%>
+                            </textarea>
                             </td>
 
                         </tr>
@@ -109,7 +112,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <button style="display:inline-block;margin:5px" type="submit" form ="editComic" class="btn btn-warning btn-xs comicBtn"><i class="fa fa-lock" aria-hidden="true"> Zapisz zmiany </i></button>
+                <button style="display:inline-block;margin:5px" type="submit" form ="editComic"class="btn btn-warning btn-xs comicBtn"><i class="fa fa-lock" aria-hidden="true"> Zapisz zmiany </i></button>
 
             </div>
     </form>

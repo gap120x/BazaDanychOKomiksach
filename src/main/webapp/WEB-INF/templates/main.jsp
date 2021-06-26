@@ -8,8 +8,6 @@
   ComicDao comicDao = new ComicDao();
   List<Comic> comics=null;
   comics = comicDao.getAll();
-
-
 %>
 
 <content>
@@ -71,7 +69,7 @@
 
       <td valign="top" class="text-center">
         <a href="index?getaction=addFavourite&id=<%=comics.get(i).getId()%>" class="favouriteComicBtn"> <button type="button" id="hearbutton" class="btn btn-outline-danger btn-lg">  <i id="heart" class="fa fa-heart"></i> Ulubione</button> </a>
-        <button onclick="location.href='editComic.html';" type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button>
+        <a href="index?getaction=editComic&id=<%=comics.get(i).getId()%>"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>
         <button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-danger btn-xs comicBtn"><i class="fa fa-trash"></i> Usuń </button>
       </td>
 
@@ -80,8 +78,6 @@
 
 
     <%}%>
-
-
 
 
 
