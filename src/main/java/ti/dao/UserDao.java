@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import org.hibernate.query.Query;
+import ti.model.Comic;
 import ti.model.User;
 import ti.util.HibernateUtil;
 
@@ -146,6 +147,8 @@ public class UserDao {
         }
         return user;
     }
+
+
     public void updateUser(User user){
 
         Transaction transaction = null;

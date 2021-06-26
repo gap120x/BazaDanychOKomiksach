@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
+import ti.model.Comic;
 import ti.model.User;
 
 /**
@@ -39,6 +40,7 @@ public class HibernateUtil {
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(Comic.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
