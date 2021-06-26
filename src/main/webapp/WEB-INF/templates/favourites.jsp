@@ -48,7 +48,7 @@
             </td>
 
             <td valign="top" class="text-center">
-                <a href=""> <button role="button" id="hearbutton" class="btn btn-outline-danger btn-lg">
+                <a href="index?getaction=deleteFavourite&id=<%=comics.get(i).getId()%>"> <button role="button" id="hearbutton" class="btn btn-outline-danger btn-lg">
                     <i class="fa fa-minus-circle"></i> Usuń </button> </a>
             </td>
         </tr>

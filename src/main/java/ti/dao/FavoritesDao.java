@@ -35,7 +35,6 @@ public class FavoritesDao {
         return comic;
     }
 
-
     public void saveFavourites(Favorites favorites) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -44,6 +43,26 @@ public class FavoritesDao {
             // save the user object
             session.save(favorites);
             // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    public void deleteFromFavourite(User user,Comic comic)
+    {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            Favorites fav = session.get(Favorites.class, new Favorites(user,comic));
+            transaction = session.beginTransaction();
+            // Delete a persistent object
+            if (fav != null) {
+                session.delete(fav);
+            }
+
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

@@ -183,6 +183,16 @@ public class HelloServlet extends HttpServlet {
             dispatcher2 = request.getRequestDispatcher("index.jsp");
             dispatcher2.forward(request, response);
         }
+        else if(getAction.equals("deleteFavourite")){
+            User user = (User) sesja.getAttribute("currentUser");
+            int idComic = parseInt(request.getParameter("id"));
+            Comic comic = comicDao.getComicById(idComic);
+            favoritesDao.deleteFromFavourite(user,comic);
+
+            RequestDispatcher dispatcher2 = null;
+            dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=favourites");
+            dispatcher2.forward(request, response);
+        }
         else if(getAction.equals("editComic"))
         {
             Integer id = parseInt(request.getParameter("id"));

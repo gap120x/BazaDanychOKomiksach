@@ -32,4 +32,12 @@ public class Favorites implements Serializable {
     public void setComic(Comic comic) {
         this.comic = comic;
     }
+    public Favorites()
+    {
+
+    }
+    public Favorites(User user,Comic comic){
+        this.user=user;
+        this.comic=comic;
+    }
 }
