@@ -41,6 +41,10 @@ public class User implements Serializable {
         this.enabled = true;
         this.role = -1;
     }
+    public int getId(){
+        return id;
+    }
+
 
     public String getUsername() {
         return username;

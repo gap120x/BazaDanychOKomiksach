@@ -71,6 +71,15 @@ public class HelloServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+logout);
             dispatcher.forward(request, response);
         }
+        else if(getAction.equals("delete"))
+        {
+            int idusera = Integer.parseInt(request.getParameter("id"));
+            userDao.deleteUserById(idusera);
+            String delete ="Użytkownik został usunięty";
+            RequestDispatcher dispatcher = null;
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+delete);
+            dispatcher.forward(request, response);
+        }
 
         //response.sendRedirect("register.jsp");
     }
@@ -125,8 +134,6 @@ public class HelloServlet extends HttpServlet {
 
 
         }
-
-
 
         dispatcher.forward(request, response);
     }
