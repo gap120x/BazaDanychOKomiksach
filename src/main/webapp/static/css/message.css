@@ -1,0 +1,23 @@
+.return button {
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: dimgray;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.return button a{
+    color:white;
+}
+
+.card {
+    height:400px;
+}
+
+.card p {
+    font-size: 22px;
+}
