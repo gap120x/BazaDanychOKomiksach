@@ -121,7 +121,7 @@ public class HelloServlet extends HttpServlet {
         Boolean enabled;
         if(role1 ==null) { role1="1";}
         if(enabled1==null){enabled1="1";}
-        if(enabled1=="1")
+        if(enabled1.equals("1"))
         {
             enabled = true;
         }
@@ -226,7 +226,7 @@ public class HelloServlet extends HttpServlet {
         Boolean enabled;
         if(role1 ==null) { role1="1";}
         if(enabled1==null){enabled1="1";}
-       if(enabled1=="1")
+       if(enabled1.equals("1"))
        {
            enabled = true;
        }
