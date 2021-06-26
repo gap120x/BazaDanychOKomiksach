@@ -219,13 +219,44 @@ public class HelloServlet extends HttpServlet {
 
     private void saveEditedComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        Integer pageCount = null;
+        Integer issueDate = null;
+
+        RequestDispatcher dispatcher = null;
+
+        String error = "";
+
         int id = parseInt(request.getParameter("id"));
         String author = request.getParameter("author");
         String category = request.getParameter("category");
         String language = request.getParameter("language");
-        Integer pageCount = parseInt(request.getParameter("pageCount"));
+
+
+        if(Parser.isStringInt(request.getParameter("pageCount"))){
+            pageCount = parseInt(request.getParameter("pageCount"));
+        }
+        else{
+            error="Wprowadzono nieprawidłową liczbę stron komiksu! Wartość musi być liczbą!";
+
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+error);
+
+            dispatcher.forward(request, response);
+        }
+
         String cover = request.getParameter("cover");
-        Integer issueDate = parseInt(request.getParameter("issueDate"));
+        if(Parser.isStringInt(request.getParameter("issueDate"))){
+            issueDate = parseInt(request.getParameter("issueDate"));
+        }
+        else{
+            error="Wprowadzono nieprawidłowy rok wydania komiksu! Wartość musi być liczbą!";
+
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+error);
+
+            dispatcher.forward(request, response);
+        }
+
         String publisher = request.getParameter("publisher");
         String description = request.getParameter("description");
         String title = request.getParameter("title");
@@ -288,7 +319,7 @@ public class HelloServlet extends HttpServlet {
         String info = "Komiks zaktualizowany!";
 
 
-        RequestDispatcher dispatcher = null;
+        //RequestDispatcher dispatcher = null;
 
         dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp?errors="+info);
 
@@ -302,12 +333,43 @@ public class HelloServlet extends HttpServlet {
         String author = request.getParameter("author");
         String category = request.getParameter("category");
         String language = request.getParameter("language");
-        Integer pageCount = parseInt(request.getParameter("pageCount"));
+        Integer pageCount = null;
+        Integer issueDate = null;
+        RequestDispatcher dispatcher = null;
+
+        String error = "";
+
+        if(Parser.isStringInt(request.getParameter("pageCount"))){
+            pageCount = parseInt(request.getParameter("pageCount"));
+        }
+        else{
+            error="Wprowadzono nieprawidłową liczbę stron komiksu! Wartość musi być liczbą!";
+
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+error);
+
+            dispatcher.forward(request, response);
+        }
+
         String cover = request.getParameter("cover");
-        Integer issueDate = parseInt(request.getParameter("issueDate"));
+
+        if(Parser.isStringInt(request.getParameter("issueDate"))){
+            issueDate = parseInt(request.getParameter("issueDate"));
+        }
+        else{
+            error="Wprowadzono nieprawidłowy rok wydania komiksu! Wartość musi być liczbą!";
+
+
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+error);
+
+            dispatcher.forward(request, response);
+        }
+
         String publisher = request.getParameter("publisher");
         String description = request.getParameter("description");
         String title = request.getParameter("title");
+
+
 
         Comic newComic = new Comic();
 
@@ -381,7 +443,7 @@ public class HelloServlet extends HttpServlet {
         String info = "Komiks został pomyślnie dodany!";
 
 
-        RequestDispatcher dispatcher = null;
+       // RequestDispatcher dispatcher = null;
 
         dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp?errors="+info);
 
