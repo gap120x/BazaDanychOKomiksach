@@ -97,6 +97,12 @@ public class HelloServlet extends HttpServlet {
             saveComic(request,response);
 
         }
+        else if(action.equals("saveEditedComic"))
+        {
+            saveEditedComic(request,response);
+        }
+
+
 
 
     }
@@ -114,6 +120,10 @@ public class HelloServlet extends HttpServlet {
             sesja.setAttribute("currentUser",currentUser);
         }
         String getAction = request.getParameter("getaction");
+
+        System.out.println("\n" + getAction + "\n");
+
+
         if(getAction==null) getAction="";
         if(getAction.equals("logout")){
             currentUser = new User();
@@ -150,15 +160,110 @@ public class HelloServlet extends HttpServlet {
         {
             int idusera = parseInt(request.getParameter("id"));
             User user = userDao.getUserById(idusera);
-            RequestDispatcher dispatcher = null;
+
+
             request.setAttribute("user",user);
             RequestDispatcher dispatcher2 = null;
             dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editUser");
             dispatcher2.forward(request, response);
 
         }
+        else if(getAction.equals("editComic"))
+        {
+            Integer id = parseInt(request.getParameter("id"));
+            Comic comic = comicDao.getComicById(id);
+
+
+            request.setAttribute("comic",comic);
+            RequestDispatcher dispatcher2 = null;
+            dispatcher2 = request.getRequestDispatcher("index.jsp?webpage=editComic");
+            System.out.println("\n comic \n");
+            dispatcher2.forward(request, response);
+
+        }
+
         //response.sendRedirect("register.jsp");
     }
+
+    private void saveEditedComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        int id = parseInt(request.getParameter("id"));
+        String author = request.getParameter("author");
+        String category = request.getParameter("category");
+        String language = request.getParameter("language");
+        Integer pageCount = parseInt(request.getParameter("pageCount"));
+        String cover = request.getParameter("cover");
+        Integer issueDate = parseInt(request.getParameter("issueDate"));
+        String publisher = request.getParameter("publisher");
+        String description = request.getParameter("description");
+        String title = request.getParameter("title");
+
+        System.out.println( "\n" + id+ "\n");
+
+        Comic newComic = comicDao.getComicById(id);
+
+
+        newComic.setAuthor(author);
+        newComic.setCategory(category);
+        newComic.setLanguage(language);
+        newComic.setPageCount(pageCount);
+        newComic.setCover(cover);
+        newComic.setIssueDate(issueDate);
+        newComic.setPublisher(publisher);
+        newComic.setDescription(description);
+        newComic.setTitle(title);
+
+        Part fileData = request.getPart("image");
+        String fileName =  new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        fileName += Paths.get(fileData.getSubmittedFileName()).getFileName().toString();
+
+        newComic.setImage(fileName);
+
+
+
+        InputStream fileContent = fileData.getInputStream();
+
+        //System.out.println(fileName);
+        //System.out.println(fileContent.available());
+
+
+        String path = getServletContext().getRealPath("/");
+
+        Path outputPath = Paths.get(path,"usercontent",fileName);
+        //System.out.println(request.getContextPath());
+
+
+        //Files.createDirectories(outputPath.getParent());
+        Files.createFile(outputPath);
+
+
+
+        FileOutputStream output = new FileOutputStream(outputPath.toString());
+
+
+
+        System.out.println(fileContent.available());
+
+        while(fileContent.available() > 0){
+            output.write(fileContent.read());
+        }
+
+
+        comicDao.updateComic(newComic);
+
+
+
+        String errors = "comic updates";
+
+
+        RequestDispatcher dispatcher = null;
+
+        dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
+
+        dispatcher.forward(request, response);
+    }
+
+
 
     private void saveComic(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -171,6 +276,9 @@ public class HelloServlet extends HttpServlet {
         String publisher = request.getParameter("publisher");
         String description = request.getParameter("description");
         String title = request.getParameter("title");
+
+
+
 
         Comic newComic = new Comic();
 
@@ -192,7 +300,9 @@ public class HelloServlet extends HttpServlet {
 
 
 
-        Part fileData = request.getPart("cover");
+
+
+        Part fileData = request.getPart("image");
         String fileName =  new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         fileName += Paths.get(fileData.getSubmittedFileName()).getFileName().toString();
 

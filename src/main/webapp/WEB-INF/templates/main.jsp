@@ -69,7 +69,7 @@
 
       <td valign="top" class="text-center">
         <a href="" class="favouriteComicBtn"> <button type="button" id="hearbutton" class="btn btn-outline-danger btn-lg">  <i id="heart" class="fa fa-heart"></i> Ulubione</button> </a>
-        <button onclick="location.href='editComic.html';" type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button>
+        <a href="index?getaction=editComic&id=<%=comics.get(i).getId()%>"><button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button></a>
         <button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-danger btn-xs comicBtn"><i class="fa fa-trash"></i> Usuń </button>
       </td>
 
@@ -78,33 +78,6 @@
 
 
     <%}%>
-
-
-
-
-    <tr>
-
-      <td valign="top" class="text-center" >
-        <a href="bookDetails.html"><img src="usercontent/rat.jpg" width="100" height="150"/> </a>
-      </td>
-      <td valign="top" class="text-center">
-        Muminki. Tom 1
-      </td>
-      <td valign="top" class="text-center">
-        Tove Jansson
-      </td>
-      <td valign="top" class="text-center">
-        Egmont
-      </td>
-      <td valign="top" class="text-center">
-        2021
-      </td>
-      <td valign="top" class="text-center">
-        <a href="" class="favouriteComicBtn"> <button type="button" id="hearbutton" class="btn btn-outline-danger btn-lg">  <i id="heart" class="fa fa-heart"></i> Ulubione</button> </a>
-        <button type="button" id="operacjeadmin" class="btn btn-info btn-xs comicBtn"><i class="fa fa-edit"></i> Edytuj </button>
-        <button style="display:inline-block;" type="button" id="operacjeadmin" class="btn btn-danger btn-xs comicBtn"><i class="fa fa-trash"></i> Usuń </button>
-      </td>
-    </tr>
 
   </table>
   </div>
