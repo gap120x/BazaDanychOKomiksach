@@ -9,13 +9,13 @@
             </div>
 
             <div class="form-group">
-                <input type="text" class="form-control item" id="nazwaUsera" name="username" placeholder="Login">
+                <input type="text" class="form-control item" id="nazwaUsera" name="username" placeholder="Login" required="required">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control item" id="hasło" name="password" placeholder="Hasło">
+                <input type="password" class="form-control item" id="hasło" name="password" placeholder="Hasło" required="required">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="email" name="email" placeholder="Email">
+                <input type="text" class="form-control item" id="email" name="email" placeholder="Email" required="required">
             </div>
 
             <div class="form-group">

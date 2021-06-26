@@ -13,6 +13,13 @@
         <element id="directory" name="classes">
           <element id="module-output" name="BazaDanychOKomiksach" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: commons-validator:commons-validator:1.4.0" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
+          <element id="library" level="project" name="Maven: commons-digester:commons-digester:1.8" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.1" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:5.5.1" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/BazaDanychOKomiksach-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

@@ -5,10 +5,10 @@
             <span><i class="icon icon-user"></i></span>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control item" id="uname"  name="username" placeholder="Login">
+            <input type="text" class="form-control item" id="uname"  name="username" placeholder="Login" required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control item" id="passwd" name="password"  placeholder="Hasło">
+            <input type="password" class="form-control item" id="passwd" name="password"  placeholder="Hasło" required="required">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-block login-button">Zaloguj</button>

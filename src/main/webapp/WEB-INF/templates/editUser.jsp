@@ -12,13 +12,13 @@
       </div>
       <input type="hidden" name="id" value="<%=user.getId()%>">
       <div class="form-group">
-        <input type="text" class="form-control item" id="nazwaUsera" name="username" value="<%=user.getUsername()%>" placeholder="Login">
+        <input type="text" class="form-control item" id="nazwaUsera" name="username" value="<%=user.getUsername()%>" placeholder="Login" required="required">
       </div>
       <div class="form-group">
-        <input type="password" class="form-control item" id="hasło" name="password" value="<%=user.getPassword()%>" placeholder="Hasło">
+        <input type="password" class="form-control item" id="hasło" name="password" value="" placeholder="Hasło">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control item" id="email" name="email" value="<%=user.getEmail()%>" placeholder="Email">
+        <input type="text" class="form-control item" id="email" name="email" value="<%=user.getEmail()%>" placeholder="Email" required="required">
       </div>
 
       <div class="form-group">

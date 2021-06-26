@@ -2,7 +2,7 @@
 <jsp:useBean id="currentUser" class="ti.model.User" scope="session"/>
 <header>
     <nav class="navbar navbar-light bg-light navbar-expand-xl">
-        <a class="navbar-brand" href="index.html">Baza danych o komiksach</a>
+        <a class="navbar-brand" href="index.jsp">Baza danych o komiksach</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu">
             <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="mainmenu">
             <ul class="navbar-nav">
                 <li class="navbar-item">
-                    <a class="nav-link" href="/">Strona główna</a>
+                    <a class="nav-link" href="index.jsp">Strona główna</a>
                 </li>
 
 <% if(currentUser.getRole() == 1){ %>

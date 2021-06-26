@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import ti.dao.UserDao;
 import ti.model.User;
+import ti.util.Parser;
 
 @WebServlet("/index")
 public class HelloServlet extends HttpServlet {
@@ -19,6 +20,27 @@ public class HelloServlet extends HttpServlet {
     public HttpSession sesja;
     public void init() {
         userDao = new UserDao();
+
+        User adminCheck = userDao.getUserByUsername("admin");
+        User userCheck = userDao.getUserByUsername("user");
+
+        if(adminCheck == null){
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setPassword(Parser.bCryptPasswordEncoder().encode("admin"));
+            admin.setEmail("admin@comics.com");
+            admin.setRole(2);
+            userDao.saveUser(admin);
+        }
+
+        if(userCheck == null){
+            User standardUser = new User();
+            standardUser.setUsername("user");
+            standardUser.setPassword(Parser.bCryptPasswordEncoder().encode("user"));
+            standardUser.setEmail("user@interia.pl");
+            standardUser.setRole(1);
+            userDao.saveUser(standardUser);
+        }
     }
 
 
@@ -28,6 +50,10 @@ public class HelloServlet extends HttpServlet {
 
         sesja =request.getSession();
         User currentUser =(User) sesja.getAttribute("currentUser");
+
+        response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("utf-8");
 
         if(currentUser==null) {
 
@@ -71,7 +97,7 @@ public class HelloServlet extends HttpServlet {
             currentUser = new User();
             sesja.setAttribute("currentUser", currentUser);
             RequestDispatcher dispatcher = null;
-            String logout = "Uzytkownik Poprawnie Wylogowany";
+            String logout = "Uzytkownik poprawnie wylogowany";
             dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+logout);
             dispatcher.forward(request, response);
         }
@@ -117,20 +143,31 @@ public class HelloServlet extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String role1 = request.getParameter("role");
-        String enabled1= request.getParameter("enabled");
+        String enabled1 = request.getParameter("enabled");
         Boolean enabled;
-        if(role1 ==null) { role1="1";}
-        if(enabled1==null){enabled1="1";}
-        if(enabled1.equals("1"))
-        {
+        if (role1 == null) {
+            role1 = "1";
+        }
+        if (enabled1 == null) {
+            enabled1 = "1";
+        }
+        if (enabled1.equals("1")) {
             enabled = true;
+        } else {
+            enabled = false;
         }
-        else
-        {
-            enabled =false;
-        }
-       Integer role = Integer.parseInt(role1);
+        Integer role = Integer.parseInt(role1);
+
+
         RequestDispatcher dispatcher = null;
+        String errors = "Rejestracja nie powiodła sie! <br/>";
+
+        if (username == "" || password == "" || email == "") {
+
+            errors += "Nie wypełniono wszystkich pól. Wszystkie pola są obowiązkowe! <br/>";
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors=" + errors);
+        } else {
+
 
 
         //check if username is free
@@ -140,10 +177,10 @@ public class HelloServlet extends HttpServlet {
 
         User emailCheck = userDao.getUserByEmail(email);
 
-        if(usernameCheck == null  && emailCheck == null){
+        if (usernameCheck == null && emailCheck == null && Parser.isValidEmail(email)) {
             User user = new User();
             user.setUsername(username);
-            user.setPassword(password);
+            user.setPassword(Parser.bCryptPasswordEncoder().encode(password));
             user.setEmail(email);
             user.setRole(role);
             user.setEnabled(enabled);
@@ -153,28 +190,28 @@ public class HelloServlet extends HttpServlet {
             userDao.saveUser(user);
             dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
 
-        }
-        else{
+        } else {
 
-            String errors = "";
-
-            errors+="Register failed, please correct the following errors and retry: <br/>";
 
             if(usernameCheck != null){
-                errors += "Username " + username + " is already taken, please choose a different username <br/> ";
+                errors += "Użytkownik o nazwie " + username + " jest już zarejestorwany, wybierz inną nazwę użytkownika <br/> ";
             }
 
             if(emailCheck != null){
-                errors += "Email " + email + " is already taken, please choose a different e-mail";
+                errors += "Email " + email + " jest już zarejestrowany, wykorzystaj inny e-mail <br/>";
+            }
+
+            if(!Parser.isValidEmail(email)){
+                errors+="Niepoprawny adres email! <br/>";
+
             }
 
 
-
-            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors="+errors);
-
+            dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-error.jsp?errors=" + errors);
 
 
         }
+    }
 
         dispatcher.forward(request, response);
     }
@@ -191,11 +228,11 @@ public class HelloServlet extends HttpServlet {
 
 
         if(usernameCheck != null){
-            if(usernameCheck.getPassword().equals(password))
+            if(Parser.isCorrectPasswd(usernameCheck, password))
             {
                if(usernameCheck.getEnabled()) {
                    sesja.setAttribute("currentUser", usernameCheck);
-                   dispatcher = request.getRequestDispatcher("WEB-INF/templates/register-success.jsp");
+                   dispatcher = request.getRequestDispatcher("index.jsp");
                }
                else
                {
@@ -243,11 +280,19 @@ public class HelloServlet extends HttpServlet {
         User usernameCheck = userDao.getUserByUsername(username);
         User emailCheck = userDao.getUserByEmail(email);
 
-        if(usernameCheck.getUsername().equals(myUser.getUsername())  && emailCheck.getEmail().equals(myUser.getEmail())){
+        if(usernameCheck==null){ usernameCheck=myUser;}
+        if(emailCheck==null){emailCheck=myUser;}
+
+        if(usernameCheck.getUsername().equals(myUser.getUsername())  && emailCheck.getEmail().equals(myUser.getEmail()) && Parser.isValidEmail(email)){
             User user = new User();
             user.setId(id);
             user.setUsername(username);
-            user.setPassword(password);
+            if(password==""){
+                user.setPassword(myUser.getPassword());
+            }else{
+                user.setPassword(Parser.bCryptPasswordEncoder().encode(password));
+            }
+
             user.setEmail(email);
             user.setRole(role);
             user.setEnabled(enabled);
@@ -258,16 +303,19 @@ public class HelloServlet extends HttpServlet {
         }
         else{
 
-            String errors = "";
+            String errors = "Edycja użytkownika nie powiodła się! <br/>";
 
-            errors+="Register failed, please correct the following errors and retry: <br/>";
 
             if(usernameCheck != null && !(usernameCheck.getUsername().equals(myUser.getUsername()))){
-                errors += "Username " + username + " is already taken, please choose a different username <br/> ";
+                errors += "Użytkownik " + username + " jest już zarejestrowany, wybierz inną nazwę użytkownika! <br/> ";
             }
 
             if(emailCheck != null && !(emailCheck.getEmail().equals(myUser.getEmail()))){
-                errors += "Email " + email + " is already taken, please choose a different e-mail";
+                errors += "Email " + email + " jest już zajęty. Wykorzystaj inny adres email <br/>";
+            }
+
+            if(!Parser.isValidEmail(email)){
+                errors += "Niepoprawny adres email! <br/>";
             }
 
 
