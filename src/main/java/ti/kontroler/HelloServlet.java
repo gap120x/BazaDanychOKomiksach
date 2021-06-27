@@ -308,7 +308,7 @@ public class HelloServlet extends HttpServlet {
                 //System.out.println(request.getContextPath());
 
 
-                //Files.createDirectories(outputPath.getParent());
+                Files.createDirectories(outputPath.getParent());
                 Files.createFile(outputPath);
 
 
@@ -432,7 +432,7 @@ public class HelloServlet extends HttpServlet {
         System.out.println(outputPath);
 
 
-        //Files.createDirectories(outputPath.getParent());
+        Files.createDirectories(outputPath.getParent());
         Files.createFile(outputPath);
 
 
